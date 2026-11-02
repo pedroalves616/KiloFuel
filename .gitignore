@@ -1,0 +1,57 @@
+# Compiled output
+/dist
+/build
+/out-tsc
+
+# Dependencies
+/node_modules
+
+# Environment variables & Secrets
+.env
+.env.*
+!.env.example
+
+# AI Agents, Skills & Internal Prompt Docs
+/.agents
+/.skills
+*.agent.md
+FITPULSE_SETUP_AGENTS.md
+documento_de_inicializa_o_e_diretrizes_dos_agentes.md
+ROADMAP.md
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Test & Coverage
+/coverage
+/.nyc_output
+
+# IDEs and Editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Temp & Cache
+.npm
+.eslintcache
+.tsbuildinfo
+*.tsbuildinfo
