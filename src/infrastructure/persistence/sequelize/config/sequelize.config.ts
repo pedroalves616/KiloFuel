@@ -20,7 +20,7 @@ export const buildSequelizeConfig = (
     port: Number(configService.get<number>('DB_PORT', 5433)),
     username: configService.get<string>('DB_USER', 'postgres'),
     password,
-    database: configService.get<string>('DB_NAME', 'fitpulse_db'),
+    database: configService.get<string>('DB_NAME', 'kilofuel_db'),
     models: [WorkoutPlanModel, AthleteModel, DietPlanModel],
     autoLoadModels: true,
     synchronize,

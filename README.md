@@ -47,7 +47,7 @@ docker compose up -d postgres
 Verifique a saúde do container:
 
 ```bash
-docker exec fitpulse_postgres pg_isready -U postgres -d fitpulse_db
+docker exec kilofuel_postgres pg_isready -U postgres -d kilofuel_db
 ```
 
 ### 4. Executar as Migrations

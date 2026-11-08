@@ -70,7 +70,7 @@ async function run(): Promise<void> {
   const port = Number(process.env.DB_PORT ?? 5432);
   const username = process.env.DB_USER ?? 'postgres';
   const password = process.env.DB_PASS ?? process.env.DB_PASSWORD ?? 'postgres';
-  const database = process.env.DB_NAME ?? 'fitpulse_db';
+  const database = process.env.DB_NAME ?? 'kilofuel_db';
 
   const sequelize = new Sequelize({
     dialect: 'postgres',

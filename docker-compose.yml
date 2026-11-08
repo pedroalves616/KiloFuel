@@ -1,21 +1,21 @@
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: fitpulse_postgres
+    container_name: kilofuel_postgres
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASS:-${DB_PASSWORD:-postgres}}
-      POSTGRES_DB: ${DB_NAME:-fitpulse_db}
+      POSTGRES_DB: ${DB_NAME:-kilofuel_db}
     ports:
       - "${DB_PORT:-5433}:5432"
     volumes:
-      - fitpulse_pg_data:/var/lib/postgresql/data
+      - kilofuel_pg_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-fitpulse_db}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-kilofuel_db}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
 volumes:
-  fitpulse_pg_data:
+  kilofuel_pg_data:
