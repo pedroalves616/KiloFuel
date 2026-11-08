@@ -6,6 +6,8 @@ import { DomainExceptionFilter } from './presentation/filters/domain-exception.f
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

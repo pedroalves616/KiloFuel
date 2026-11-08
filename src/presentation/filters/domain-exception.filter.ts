@@ -5,8 +5,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { AthleteAlreadyExistsError } from '../../core/domain/errors/athlete-already-exists.error';
 import { DomainError } from '../../core/domain/errors/domain.error';
 import { EntityNotFoundError } from '../../core/domain/errors/entity-not-found.error';
+import { InvalidAthleteError } from '../../core/domain/errors/invalid-athlete.error';
+import { InvalidCredentialsError } from '../../core/domain/errors/invalid-credentials.error';
+import { InvalidDietPlanError } from '../../core/domain/errors/invalid-diet-plan.error';
+import { InvalidEmailError } from '../../core/domain/errors/invalid-email.error';
+import { InvalidMacroDistributionError } from '../../core/domain/errors/invalid-macro-distribution.error';
 import { InvalidRpeScoreError } from '../../core/domain/errors/invalid-rpe-score.error';
 import { InvalidWorkoutPlanError } from '../../core/domain/errors/invalid-workout-plan.error';
 
@@ -34,9 +40,21 @@ export class DomainExceptionFilter implements ExceptionFilter {
       return HttpStatus.NOT_FOUND;
     }
 
+    if (exception instanceof InvalidCredentialsError) {
+      return HttpStatus.UNAUTHORIZED;
+    }
+
+    if (exception instanceof AthleteAlreadyExistsError) {
+      return HttpStatus.CONFLICT;
+    }
+
     if (
       exception instanceof InvalidRpeScoreError ||
-      exception instanceof InvalidWorkoutPlanError
+      exception instanceof InvalidWorkoutPlanError ||
+      exception instanceof InvalidEmailError ||
+      exception instanceof InvalidAthleteError ||
+      exception instanceof InvalidDietPlanError ||
+      exception instanceof InvalidMacroDistributionError
     ) {
       return HttpStatus.BAD_REQUEST;
     }
@@ -44,4 +62,3 @@ export class DomainExceptionFilter implements ExceptionFilter {
     return HttpStatus.UNPROCESSABLE_ENTITY;
   }
 }
-

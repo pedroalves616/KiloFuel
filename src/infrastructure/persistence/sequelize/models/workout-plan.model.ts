@@ -66,6 +66,7 @@ export class WorkoutPlanModel extends Model<
       'STRENGTH',
       'ENDURANCE',
       'FAT_LOSS',
+      'WEIGHT_LOSS',
       'GENERAL_FITNESS',
     ),
     allowNull: false,

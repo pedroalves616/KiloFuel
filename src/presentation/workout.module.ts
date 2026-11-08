@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CreateWorkoutPlanUseCase } from '../core/application/use-cases/create-workout-plan.use-case';
 import { GetWorkoutPlanByIdUseCase } from '../core/application/use-cases/get-workout-plan-by-id.use-case';
 import { ListWorkoutsByAthleteUseCase } from '../core/application/use-cases/list-workouts-by-athlete.use-case';
+import { ToggleWorkoutPlanActiveUseCase } from '../core/application/use-cases/toggle-workout-plan-active.use-case';
 import {
   WORKOUT_REPOSITORY_PORT,
   WorkoutRepositoryPort,
@@ -31,11 +32,18 @@ import { WorkoutController } from './controllers/workout.controller';
         new ListWorkoutsByAthleteUseCase(workoutRepository),
       inject: [WORKOUT_REPOSITORY_PORT],
     },
+    {
+      provide: ToggleWorkoutPlanActiveUseCase,
+      useFactory: (workoutRepository: WorkoutRepositoryPort) =>
+        new ToggleWorkoutPlanActiveUseCase(workoutRepository),
+      inject: [WORKOUT_REPOSITORY_PORT],
+    },
   ],
   exports: [
     CreateWorkoutPlanUseCase,
     GetWorkoutPlanByIdUseCase,
     ListWorkoutsByAthleteUseCase,
+    ToggleWorkoutPlanActiveUseCase,
   ],
 })
 export class WorkoutModule {}

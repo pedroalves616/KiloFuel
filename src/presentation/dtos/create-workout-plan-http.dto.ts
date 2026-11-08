@@ -21,6 +21,7 @@ const WORKOUT_GOALS: WorkoutGoal[] = [
   'STRENGTH',
   'ENDURANCE',
   'FAT_LOSS',
+  'WEIGHT_LOSS',
   'GENERAL_FITNESS',
 ];
 

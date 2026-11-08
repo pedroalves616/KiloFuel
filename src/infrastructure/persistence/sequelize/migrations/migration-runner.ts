@@ -5,6 +5,8 @@ import {
   CreateWorkoutPlansTable202611020001,
   MigrationDefinition,
 } from './202611020001-create-workout-plans-table';
+import { CreateAthletesTable202611070002 } from './202611070002-create-athletes-table';
+import { CreateDietPlansTable202611070003 } from './202611070003-create-diet-plans-table';
 
 function loadEnvFile(): void {
   const envPaths = [
@@ -31,6 +33,8 @@ function loadEnvFile(): void {
 
 const migrations: MigrationDefinition[] = [
   CreateWorkoutPlansTable202611020001,
+  CreateAthletesTable202611070002,
+  CreateDietPlansTable202611070003,
 ];
 
 async function ensureMetaTable(sequelize: Sequelize): Promise<void> {

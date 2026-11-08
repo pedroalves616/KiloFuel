@@ -1,5 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { SequelizeModuleOptions } from '@nestjs/sequelize';
+import { AthleteModel } from '../models/athlete.model';
+import { DietPlanModel } from '../models/diet-plan.model';
 import { WorkoutPlanModel } from '../models/workout-plan.model';
 
 export const buildSequelizeConfig = (
@@ -15,11 +17,11 @@ export const buildSequelizeConfig = (
   return {
     dialect: 'postgres',
     host: configService.get<string>('DB_HOST', 'localhost'),
-    port: Number(configService.get<number>('DB_PORT', 5432)),
+    port: Number(configService.get<number>('DB_PORT', 5433)),
     username: configService.get<string>('DB_USER', 'postgres'),
     password,
     database: configService.get<string>('DB_NAME', 'fitpulse_db'),
-    models: [WorkoutPlanModel],
+    models: [WorkoutPlanModel, AthleteModel, DietPlanModel],
     autoLoadModels: true,
     synchronize,
     logging: false,

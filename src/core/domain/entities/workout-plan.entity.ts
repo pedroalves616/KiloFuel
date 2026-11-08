@@ -6,6 +6,7 @@ export type WorkoutGoal =
   | 'STRENGTH'
   | 'ENDURANCE'
   | 'FAT_LOSS'
+  | 'WEIGHT_LOSS'
   | 'GENERAL_FITNESS';
 
 export interface CreateWorkoutPlanProps {
@@ -185,6 +186,12 @@ export class WorkoutPlan {
   public deactivate(): void {
     this._isActive = false;
     this.touch();
+  }
+
+  public toggleActive(): boolean {
+    this._isActive = !this._isActive;
+    this.touch();
+    return this._isActive;
   }
 
   public get totalWorkingSets(): number {

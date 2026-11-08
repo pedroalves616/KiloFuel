@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -12,6 +13,7 @@ import { WorkoutPlanOutputDto } from '../../core/application/dtos/workout-plan-o
 import { CreateWorkoutPlanUseCase } from '../../core/application/use-cases/create-workout-plan.use-case';
 import { GetWorkoutPlanByIdUseCase } from '../../core/application/use-cases/get-workout-plan-by-id.use-case';
 import { ListWorkoutsByAthleteUseCase } from '../../core/application/use-cases/list-workouts-by-athlete.use-case';
+import { ToggleWorkoutPlanActiveUseCase } from '../../core/application/use-cases/toggle-workout-plan-active.use-case';
 import { CreateWorkoutPlanHttpDto } from '../dtos/create-workout-plan-http.dto';
 
 @Controller('workouts')
@@ -20,6 +22,7 @@ export class WorkoutController {
     private readonly createWorkoutPlanUseCase: CreateWorkoutPlanUseCase,
     private readonly getWorkoutPlanByIdUseCase: GetWorkoutPlanByIdUseCase,
     private readonly listWorkoutsByAthleteUseCase: ListWorkoutsByAthleteUseCase,
+    private readonly toggleWorkoutPlanActiveUseCase: ToggleWorkoutPlanActiveUseCase,
   ) {}
 
   @Post()
@@ -56,6 +59,14 @@ export class WorkoutController {
       athleteId: userId,
       onlyActive: onlyActive === 'true',
     });
+  }
+
+  @Patch(':id/toggle-active')
+  @HttpCode(HttpStatus.OK)
+  public async toggleActive(
+    @Param('id') id: string,
+  ): Promise<WorkoutPlanOutputDto> {
+    return this.toggleWorkoutPlanActiveUseCase.execute(id);
   }
 }
 

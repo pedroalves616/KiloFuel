@@ -1,0 +1,382 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-07T20:35:00.000Z",
+  "__export_source": "insomnia.desktop.app:v9.3.0",
+  "resources": [
+    {
+      "_id": "wrk_kilofuel_api",
+      "parentId": null,
+      "modified": 1762547700000,
+      "created": 1762547040000,
+      "name": "KiloFuel API",
+      "description": "Coleção de requisições da KiloFuel API (NestJS + Clean Architecture + PostgreSQL)",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_kilofuel_base",
+      "parentId": "wrk_kilofuel_api",
+      "modified": 1762547700000,
+      "created": 1762547040000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000",
+        "athlete_id": "athlete-001",
+        "workout_id": "550e8400-e29b-41d4-a716-446655440000",
+        "access_token": "COLE_SEU_ACCESS_TOKEN_AQUI",
+        "refresh_token": "COLE_SEU_REFRESH_TOKEN_AQUI"
+      },
+      "dataPropertyOrder": {
+        "&": [
+          "base_url",
+          "athlete_id",
+          "workout_id",
+          "access_token",
+          "refresh_token"
+        ]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1762547040000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_auth",
+      "parentId": "wrk_kilofuel_api",
+      "modified": 1762547700000,
+      "created": 1762547700000,
+      "name": "Auth (Login Mobile & Sessão)",
+      "description": "Endpoints de registro, login, renovação de token (Refresh) e perfil autenticado para o App Mobile",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1762547700000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_auth_register",
+      "parentId": "fld_auth",
+      "modified": 1762547700000,
+      "created": 1762547700000,
+      "url": "{{ _.base_url }}/auth/register",
+      "name": "1. Registrar Atleta (Mobile Sign Up)",
+      "description": "Cria uma nova conta de atleta com senha criptografada (scrypt) e retorna accessToken + refreshToken.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Pedro Alves\",\n  \"email\": \"pedro@kilofuel.com\",\n  \"password\": \"KiloFuel@2026\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547700000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_login",
+      "parentId": "fld_auth",
+      "modified": 1762547700000,
+      "created": 1762547700000,
+      "url": "{{ _.base_url }}/auth/login",
+      "name": "2. Login (Mobile Sign In)",
+      "description": "Autentica o atleta por e-mail e senha e retorna accessToken, refreshToken e dados do perfil.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"pedro@kilofuel.com\",\n  \"password\": \"KiloFuel@2026\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547690000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_me",
+      "parentId": "fld_auth",
+      "modified": 1762547700000,
+      "created": 1762547700000,
+      "url": "{{ _.base_url }}/auth/me",
+      "name": "3. Perfil do Atleta Logado (GET /auth/me)",
+      "description": "Retorna os dados do atleta autenticado via Header Authorization: Bearer <access_token>.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.access_token }}"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547680000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_auth_refresh",
+      "parentId": "fld_auth",
+      "modified": 1762547700000,
+      "created": 1762547700000,
+      "url": "{{ _.base_url }}/auth/refresh",
+      "name": "4. Renovar Sessão (Refresh Token)",
+      "description": "Gera um novo par de tokens (accessToken e refreshToken) para manter a sessão ativa no App Mobile.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"refreshToken\": \"{{ _.refresh_token }}\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547670000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_workouts",
+      "parentId": "wrk_kilofuel_api",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "name": "Workouts (Planos de Treino)",
+      "description": "Endpoints para criação e consulta de planos de treino",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1762547040000,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_create_workout_hypertrophy",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts",
+      "name": "1. Criar Plano de Treino (Hipertrofia)",
+      "description": "Cria um novo plano de treino validando invariantes de domínio e calculando totalWorkingSets, averageTargetRpe e Reps in Reserve (RIR).",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"athleteId\": \"{{ _.athlete_id }}\",\n  \"name\": \"Upper / Lower Hipertrofia\",\n  \"description\": \"Bloco de acumulação de volume com foco em básicos\",\n  \"goal\": \"HYPERTROPHY\",\n  \"weeklyFrequency\": 4,\n  \"deactivateExistingPlans\": true,\n  \"exercises\": [\n    {\n      \"name\": \"Supino Reto com Barra\",\n      \"muscleGroup\": \"CHEST\",\n      \"sets\": 4,\n      \"minReps\": 6,\n      \"maxReps\": 8,\n      \"targetRpe\": 8.5,\n      \"restSeconds\": 180,\n      \"notes\": \"Pausa de 1s no peito\"\n    },\n    {\n      \"name\": \"Remada Curvada Pronada\",\n      \"muscleGroup\": \"BACK\",\n      \"sets\": 4,\n      \"minReps\": 8,\n      \"maxReps\": 10,\n      \"targetRpe\": 8,\n      \"restSeconds\": 120\n    },\n    {\n      \"name\": \"Desenvolvimento com Halteres\",\n      \"muscleGroup\": \"SHOULDERS\",\n      \"sets\": 3,\n      \"minReps\": 8,\n      \"maxReps\": 12,\n      \"targetRpe\": 8,\n      \"restSeconds\": 90\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547040000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_workout_strength",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts",
+      "name": "2. Criar Novo Plano (Força - Desativa Anterior)",
+      "description": "Cria um novo plano de força para o mesmo atleta e desativa automaticamente o plano ativo anterior.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"athleteId\": \"{{ _.athlete_id }}\",\n  \"name\": \"Bloco de Força Máxima (Peaking)\",\n  \"description\": \"Foco em cargas altas e RPE controlado\",\n  \"goal\": \"STRENGTH\",\n  \"weeklyFrequency\": 3,\n  \"deactivateExistingPlans\": true,\n  \"exercises\": [\n    {\n      \"name\": \"Agachamento Low Bar\",\n      \"muscleGroup\": \"LEGS\",\n      \"sets\": 5,\n      \"minReps\": 3,\n      \"maxReps\": 5,\n      \"targetRpe\": 9,\n      \"restSeconds\": 240,\n      \"notes\": \"Usar cinto a partir da 3ª série\"\n    },\n    {\n      \"name\": \"Levantamento Terra Convencional\",\n      \"muscleGroup\": \"BACK\",\n      \"sets\": 3,\n      \"minReps\": 3,\n      \"maxReps\": 5,\n      \"targetRpe\": 8.5,\n      \"restSeconds\": 240\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762547030000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_workouts_by_user",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts/user/{{ _.athlete_id }}",
+      "name": "3. Listar Todos os Planos do Atleta",
+      "description": "Lista todo o histórico de planos de treino (ativos e inativos) de um atleta.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1762547020000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_list_active_workouts_by_user",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts/user/{{ _.athlete_id }}",
+      "name": "4. Listar Apenas Plano Ativo do Atleta",
+      "description": "Filtra apenas os planos ativos (?onlyActive=true) do atleta.",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_only_active",
+          "name": "onlyActive",
+          "value": "true",
+          "description": "Retorna apenas planos ativos"
+        }
+      ],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1762547010000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_workout_by_id",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts/{{ _.workout_id }}",
+      "name": "5. Buscar Plano de Treino por ID",
+      "description": "Busca um plano específico pelo seu UUID. Copie o 'id' retornado no POST e atualize a variável 'workout_id' no Environment (ou direto na URL).",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1762547000000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_create_workout_invalid_rpe",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts",
+      "name": "6. [Erro 400] RPE Inválido (DomainExceptionFilter)",
+      "description": "Testa a validação do Value Object RpeScore quando um RPE inválido (ex: 8.3, que não é múltiplo de 0.5) é enviado.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"athleteId\": \"{{ _.athlete_id }}\",\n  \"name\": \"Treino com RPE Inválido\",\n  \"goal\": \"HYPERTROPHY\",\n  \"weeklyFrequency\": 4,\n  \"exercises\": [\n    {\n      \"name\": \"Agachamento Livre\",\n      \"muscleGroup\": \"LEGS\",\n      \"sets\": 4,\n      \"minReps\": 6,\n      \"maxReps\": 8,\n      \"targetRpe\": 8.3,\n      \"restSeconds\": 180\n    }\n  ]\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1762546990000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_workout_not_found",
+      "parentId": "fld_workouts",
+      "modified": 1762547040000,
+      "created": 1762547040000,
+      "url": "{{ _.base_url }}/workouts/00000000-0000-0000-0000-000000000000",
+      "name": "7. [Erro 404] Plano Não Encontrado (EntityNotFoundError)",
+      "description": "Testa o retorno 404 padronizado pelo DomainExceptionFilter quando o ID não existe no banco.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": -1762546980000,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    }
+  ]
+}

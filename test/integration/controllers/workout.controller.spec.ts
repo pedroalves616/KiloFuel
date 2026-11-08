@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { CreateWorkoutPlanUseCase } from '../../../src/core/application/use-cases/create-workout-plan.use-case';
 import { GetWorkoutPlanByIdUseCase } from '../../../src/core/application/use-cases/get-workout-plan-by-id.use-case';
 import { ListWorkoutsByAthleteUseCase } from '../../../src/core/application/use-cases/list-workouts-by-athlete.use-case';
+import { ToggleWorkoutPlanActiveUseCase } from '../../../src/core/application/use-cases/toggle-workout-plan-active.use-case';
 import {
   WORKOUT_REPOSITORY_PORT,
   WorkoutRepositoryPort,
@@ -42,6 +43,12 @@ describe('WorkoutController + DomainExceptionFilter (HTTP Integration)', () => {
           provide: ListWorkoutsByAthleteUseCase,
           useFactory: (repo: WorkoutRepositoryPort) =>
             new ListWorkoutsByAthleteUseCase(repo),
+          inject: [WORKOUT_REPOSITORY_PORT],
+        },
+        {
+          provide: ToggleWorkoutPlanActiveUseCase,
+          useFactory: (repo: WorkoutRepositoryPort) =>
+            new ToggleWorkoutPlanActiveUseCase(repo),
           inject: [WORKOUT_REPOSITORY_PORT],
         },
       ],
