@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CalculateDietPlanUseCase } from '../core/application/use-cases/calculate-diet-plan.use-case';
-import {
-  GetDietPlanByIdUseCase,
-  ListDietsByAthleteUseCase,
-} from '../core/application/use-cases/list-diets-by-athlete.use-case';
+import { GetDietPlanByIdUseCase } from '../core/application/use-cases/get-diet-plan-by-id.use-case';
+import { ListDietsByAthleteUseCase } from '../core/application/use-cases/list-diets-by-athlete.use-case';
 import { LogDailyMealConsumptionUseCase } from '../core/application/use-cases/log-daily-meal-consumption.use-case';
 import {
   DIET_PLAN_REPOSITORY_PORT,
